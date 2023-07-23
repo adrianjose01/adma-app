@@ -2,7 +2,6 @@ import React from "react";
 import logo from "../images/logo.svg";
 import inicio from "../images/home.svg";
 import facturas from "../images/FACTURAS.svg";
-import settings from "../images/settings.svg";
 import usuario from "../images/usuario.svg";
 import { Link } from "react-router-dom";
 
@@ -25,8 +24,8 @@ const SidebarMenu = () => {
           <img src={usuario} alt="Link button" />
           <Link to="/inquilinos">Inquilinos</Link>
         </li>
-        <li className="menu_list_item">
-          <img src={settings} alt="Link button" />
+        <li className="menu_list_item fa-building_container">
+          <i className="fa fa-building" aria-hidden="true"></i>
           <Link to="/locales">Locales</Link>
         </li>
       </ul>

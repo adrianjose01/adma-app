@@ -1,51 +1,46 @@
 import React from "react";
-import AddInquilinos from "./modals/AddInquilinos";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AddLocales from "./modals/AddLocales";
 
-const inquilinos = [
+const locles = [
   {
-    nombre: "Jorge Suriel",
+    nombre: "F1",
     monto: 7000,
-    monto_pendiente: 14000,
-    local: "F1",
+    descripcion: "Este es el local de Jorge",
   },
   {
-    nombre: "Nereyda",
+    nombre: "F2",
     monto: 2000,
-    monto_pendiente: 6000,
-    local: "F2",
+    descripcion: "Este es el local de Nereida",
   },
 ];
 
-const Inqulinos = () => {
+const Locales = () => {
   return (
     <div className="container">
       <div className="inquilinos_container">
-        <h1>Inquilinos</h1>
+        <h1>Locales</h1>
         <div className="inquilinos">
-          <AddInquilinos />
+          <AddLocales />
           <table className="inquilinos_table">
             <tbody>
               <tr>
                 <th>Nombre</th>
-                <th>Pendiente</th>
-                <th className="local_column">local</th>
+                <th>Descripcion</th>
+                <th>Monto</th>
                 <th>Acciones</th>
               </tr>
-              {inquilinos.map((inq, i) => (
+              {locles.map((loc, i) => (
                 <tr key={i}>
-                  <td>{inq.nombre}</td>
-                  <td>{inq.monto_pendiente}</td>
-                  <td className="local_column">{inq.local}</td>
+                  <td>{loc.nombre}</td>
+                  <td>{loc.descripcion}</td>
+                  <td>{loc.monto}</td>
                   <td className="actions">
                     <button className="icons_btn">
                       <i className="fa fa-trash" aria-hidden="true"></i>
                     </button>
                     <button className="icons_btn">
                       <i className="fa fa-folder-o" aria-hidden="true"></i>
-                    </button>
-                    <button className="icons_btn">
-                      <i className="fa fa-money" aria-hidden="true"></i>
                     </button>
                   </td>
                 </tr>
@@ -58,4 +53,4 @@ const Inqulinos = () => {
   );
 };
 
-export default Inqulinos;
+export default Locales;

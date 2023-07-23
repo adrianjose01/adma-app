@@ -30,15 +30,21 @@ const data = [
 
 const Dashboard = () => {
   const [saludo, setSaludo] = useState("");
+
   useEffect(() => {
-    if (new Date().getHours() < 12) {
+    const date = new Date();
+    if (date.getHours() < 12) {
       setSaludo("Buenos días");
-    } else if (new Date().getHours() > 12 && new Date().getHours() < 18) {
+    } else if (date.getHours() > 12 && date.getHours() <= 18) {
+      console.log("Buenas Tardes");
       setSaludo("Buenas tardes");
-    } else if (new Date().getHours() > 18) {
+    } else if (date.getHours() > 18) {
       setSaludo("Buenas noches");
+    } else {
+      setSaludo("Hola");
     }
   }, []);
+
   return (
     <div className="container">
       <div className="dashboard_container">

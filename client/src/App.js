@@ -3,6 +3,9 @@ import SidebarMenu from "./components/SidebarMenu";
 import Dashboard from "./components/Dashboard";
 import Inqulinos from "./components/Inqulinos";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Locales from "./components/Locales";
+import Facturas from "./components/Facturas";
+import FacturaReceive from "./components/FacturaReceive";
 
 const router = createBrowserRouter([
   {
@@ -15,10 +18,15 @@ const router = createBrowserRouter([
     errorElement: <h1>Error 404: Page not found!</h1>,
   },
   {
+    path: "/facturas/:facturaId",
+    element: <FacturaReceive />,
+  },
+  {
     path: "/facturas",
     element: (
       <>
         <SidebarMenu />
+        <Facturas />
       </>
     ),
   },
@@ -36,6 +44,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <SidebarMenu />
+        <Locales />
       </>
     ),
   },
