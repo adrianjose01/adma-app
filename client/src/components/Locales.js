@@ -26,14 +26,14 @@ const Locales = () => {
             <tbody>
               <tr>
                 <th>Nombre</th>
-                <th>Descripcion</th>
+                <th className="local_column">Descripcion</th>
                 <th>Monto</th>
                 <th>Acciones</th>
               </tr>
               {locles.map((loc, i) => (
                 <tr key={i}>
                   <td>{loc.nombre}</td>
-                  <td>{loc.descripcion}</td>
+                  <td className="local_column">{loc.descripcion}</td>
                   <td>{loc.monto}</td>
                   <td className="actions">
                     <button className="icons_btn">

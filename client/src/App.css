@@ -219,13 +219,28 @@ select {
   border-bottom: 1px solid var(--primary-dark-color);
 }
 
+.note_container {
+  margin: 1rem;
+}
+
+.note_container textarea {
+  width: 100%;
+  padding: 0.3rem;
+}
+
 /*  */
 
 @media (max-width: 425px) {
   #root {
     display: block;
+    width: 100%;
   }
   .sidebar_menu {
+    width: 100vw;
+    border-right: none;
+    height: fit-content;
+  }
+  .logo {
     width: 100vw;
   }
   .container {
@@ -233,5 +248,25 @@ select {
   }
   .local_column {
     display: none;
+  }
+  .inquilinos_table tr {
+    font-size: 1rem;
+  }
+
+  .inquilinos_table td {
+    font-size: 1rem;
+  }
+  .inquilinos {
+    padding: 1rem;
+  }
+  table {
+    width: 95vw;
+  }
+  .welcome_widget,
+  .inqulinos_widget {
+    width: 90%;
+  }
+  .icons_btn i {
+    font-size: 2rem;
   }
 }

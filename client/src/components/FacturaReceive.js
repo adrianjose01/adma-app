@@ -48,11 +48,24 @@ function FacturaReceive() {
               <p>Monto Restante</p>
               <b>{`$${fac[0].monto - fac[0].montoPagado}`}</b>
             </div>
+            <hr />
+            <div className="receive_paymets">
+              <p>
+                <b>Monto Pendiente total</b>
+              </p>
+              <b>{`$${fac[0].monto - fac[0].montoPagado}`}</b>
+            </div>
           </main>
           <footer>
             <div className="receive_sign"></div>
             <h4>Jose M. De Jesus P.</h4>
           </footer>
+          <div className="note_container">
+            <p>
+              <b>Nota:</b>
+            </p>
+            <textarea></textarea>
+          </div>
         </div>
       )}
     </>
