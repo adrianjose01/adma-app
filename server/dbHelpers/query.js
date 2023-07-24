@@ -1,4 +1,4 @@
-const dbconfig = require("./dbconfig");
+const dbconfig = require("../dbconfig");
 const mysql = require("mysql2/promise");
 
 module.exports = async function query(sql) {

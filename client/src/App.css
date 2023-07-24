@@ -228,6 +228,16 @@ select {
   padding: 0.3rem;
 }
 
+.deudas_inquilinos {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deudas_inquilinos p {
+  color: var(--primary-light-color);
+  font-size: 1.4rem;
+}
+
 /*  */
 
 @media (max-width: 425px) {
