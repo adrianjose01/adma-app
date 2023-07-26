@@ -1,26 +1,24 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
-
-const locales = [
-  {
-    nombre: "F1",
-    id: 1,
-  },
-  {
-    nombre: "F2",
-    id: 2,
-  },
-];
 
 function AddInquilinos() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [locales, setLocales] = useState([]);
+
+  useEffect(() => {
+    axios.get("/get-locales").then((res) => {
+      setLocales(res.data.data);
+    });
+  }, []);
 
   return (
     <>

@@ -1,5 +1,6 @@
 const query = require("../dbHelpers/query");
 const emptyOrRows = require("../dbHelpers/emptyOrRows");
+const getMultiple = require("../dbHelpers/getMultiple");
 
 exports.getTotalPending = async (req, res, next) => {
   const totalPending = await query(
@@ -21,4 +22,17 @@ exports.getInquilinos = async (req, res, next) => {
   );
 
   res.json(emptyOrRows(inqulinos));
+};
+
+exports.getLocales = async (req, res, next) => {
+  const locales = await getMultiple("local");
+  res.json(locales);
+};
+
+exports.addLocales = async (req, res, next) => {
+  const { nombre, descripcion, valor } = req.body;
+  const datos = await query(
+    `INSERT INTO local(nombre, descripcion, valor) VALUES ("${nombre}", "${descripcion}", ${valor});`
+  );
+  res.json(datos);
 };

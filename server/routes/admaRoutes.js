@@ -8,4 +8,8 @@ router.get("/get-total-debts", admaController.getTotalIndividualDebts);
 
 router.get("/get-inquilinos", admaController.getInquilinos);
 
+router.get("/get-locales", admaController.getLocales);
+
+router.post("/add-local", admaController.addLocales);
+
 module.exports = router;

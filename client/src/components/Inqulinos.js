@@ -3,21 +3,6 @@ import AddInquilinos from "./modals/AddInquilinos";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
-const inquilinoss = [
-  {
-    nombre: "Jorge Suriel",
-    monto: 7000,
-    monto_pendiente: 14000,
-    local: "F1",
-  },
-  {
-    nombre: "Nereyda",
-    monto: 2000,
-    monto_pendiente: 6000,
-    local: "F2",
-  },
-];
-
 const Inqulinos = () => {
   const [inquilinos, setInquilinos] = useState([]);
 

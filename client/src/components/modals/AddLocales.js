@@ -1,15 +1,37 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import axios from "axios";
 
 function AddLocales() {
   const [show, setShow] = useState(false);
+  const nameRef = useRef();
+  const valorRef = useRef();
+  const descripcionRef = useRef();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleSaveLocal = () => {
+    const nombre = nameRef.current.value;
+    const descripcion = descripcionRef.current.value;
+    const valor = +valorRef.current.value;
+
+    const data = {
+      nombre,
+      descripcion,
+      valor,
+    };
+
+    axios.post("/add-local", data).then((res) => {
+      console.log(data);
+      alert("Local agregado exitosamente!");
+      window.location.reload();
+    });
+  };
 
   return (
     <>
@@ -18,7 +40,7 @@ function AddLocales() {
         variant="primary"
         onClick={handleShow}
       >
-        <i class="fa fa-user-circle " aria-hidden="true"></i>
+        <i className="fa fa-user-circle " aria-hidden="true"></i>
         Agregar Local
       </button>
 
@@ -31,19 +53,15 @@ function AddLocales() {
             <h4>Datos del Local</h4>
             <label className="form_label">
               <span className="label_span">Nombre</span>
-              <input type="text" />
+              <input type="text" ref={nameRef} />
             </label>
             <label className="form_label">
               <span className="label_span">Monto</span>
-              <input type="number" />
+              <input type="number" ref={valorRef} />
             </label>
             <label className="form_label">
               <span className="label_span">Descripcion</span>
-              <textarea></textarea>
-            </label>
-            <label className="form_label">
-              <span className="label_span">Direccion</span>
-              <input type="text" />
+              <textarea ref={descripcionRef}></textarea>
             </label>
           </form>
         </Modal.Body>
@@ -55,6 +73,7 @@ function AddLocales() {
             variant="primary"
             onClick={handleClose}
             style={{ backgroundColor: "#1b263b", border: "none" }}
+            onClickCapture={handleSaveLocal}
           >
             Guardar Local
           </Button>
