@@ -36,3 +36,24 @@ exports.addLocales = async (req, res, next) => {
   );
   res.json(datos);
 };
+
+exports.getFacturas = async (req, res, next) => {
+  const facturas = await getMultiple("facturas");
+  res.json(facturas);
+};
+
+exports.getReceiveFactura = async (req, res, next) => {
+  const { facturaId } = req.params;
+  const datos = await query(
+    `SELECT * FROM facturas WHERE facturaId = ${facturaId};`
+  );
+  res.json(emptyOrRows(datos));
+};
+
+exports.getdebt = async (req, res, next) => {
+  const { inqId } = req.params;
+  const data =
+    await query(`SELECT I.nombre, SUM(F.valor) - SUM(F.valor_pagado) AS deuda FROM inquilinos I INNER JOIN facturas F ON I.inquilinosId = F.inquilinosId WHERE I.inquilinosId = ${inqId} GROUP BY I.nombre;
+  `);
+  res.json(emptyOrRows(data));
+};
