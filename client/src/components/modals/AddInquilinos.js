@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
@@ -9,10 +9,37 @@ import "font-awesome/css/font-awesome.min.css";
 function AddInquilinos() {
   const [show, setShow] = useState(false);
 
+  const nameInqRef = useRef();
+  const cedulaInquRef = useRef();
+  const phoneInqRef = useRef();
+  const adressInqRef = useRef();
+  const localIdRef = useRef();
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const [locales, setLocales] = useState([]);
+
+  const handleForm = () => {
+    const date = new Date();
+
+    axios
+      .post("/add-inquilino", {
+        nombre: nameInqRef.current.value,
+        cedula: cedulaInquRef.current.value,
+        telefono: phoneInqRef.current.value,
+        direccion: adressInqRef.currentvalue,
+        localId: localIdRef.current.value,
+        fecha: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+      })
+      .then((res) => {
+        alert("¡Inquilino Agregado Exitosamente!");
+        window.location.reload();
+      })
+      .catch((err) => {
+        alert(`No se agregar al Inquilino! ${err}`);
+      });
+  };
 
   useEffect(() => {
     axios.get("/get-locales").then((res) => {
@@ -40,26 +67,28 @@ function AddInquilinos() {
             <h4>Datos del inquilino</h4>
             <label className="form_label">
               <span className="label_span">Nombre Completo</span>
-              <input type="text" />
+              <input ref={nameInqRef} type="text" />
             </label>
             <label className="form_label">
               <span className="label_span">Cedula</span>
-              <input type="number" />
+              <input ref={cedulaInquRef} type="number" />
             </label>
             <label className="form_label">
               <span className="label_span">Telefono</span>
-              <input type="text" />
+              <input ref={phoneInqRef} type="text" />
             </label>
             <label className="form_label">
               <span className="label_span">Direccion</span>
-              <input type="text" />
+              <input ref={adressInqRef} type="text" />
             </label>
             <label className="form_label">
               <span className="label_span">Local</span>
-              <select>
+              <select ref={localIdRef}>
                 <option>Seleccione un local</option>
                 {locales.map((loc, i) => (
-                  <option key={i}>{loc.nombre}</option>
+                  <option key={i} value={loc.localId}>
+                    {loc.nombre}
+                  </option>
                 ))}
               </select>
             </label>
@@ -90,6 +119,7 @@ function AddInquilinos() {
             variant="primary"
             onClick={handleClose}
             style={{ backgroundColor: "#1b263b", border: "none" }}
+            onClickCapture={handleForm}
           >
             Guardar Inquilino
           </Button>

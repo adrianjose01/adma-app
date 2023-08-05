@@ -35,8 +35,7 @@ const Dashboard = () => {
         <div className="welcome_widget">
           <h2>{saludo}, Jose Manuel</h2>
           <p>Pendiente por cobrar: {`$${pendiente.toFixed(2)}`}</p>
-          <h3>{`${new Date().getDate()} / ${new Date()
-            .getMonth()
+          <h3>{`${new Date().getDate()} / ${(new Date().getMonth() + 1)
             .toString()
             .padStart(2, "0")} / ${new Date().getFullYear()}`}</h3>
         </div>

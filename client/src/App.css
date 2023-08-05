@@ -245,6 +245,32 @@ td {
   padding-left: 1.3rem;
 }
 
+.restante {
+  border: none;
+}
+
+.restante:focus {
+  border: none;
+  outline: none;
+}
+
+.filtro {
+  display: flex;
+  margin-left: 2rem;
+  gap: 1rem;
+  width: 60vw;
+  max-width: 1000px;
+  text-align: left;
+}
+
+.green {
+  background-color: limegreen;
+}
+
+.red {
+  background-color: red;
+}
+
 @media (max-width: 425px) {
   #root {
     display: block;

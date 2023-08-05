@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import AddInquilinos from "./modals/AddInquilinos";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Inqulinos = () => {
   const [inquilinos, setInquilinos] = useState([]);
 
   useEffect(() => {
     axios.get("/get-inquilinos").then((res) => {
-      console.log(res.data);
       setInquilinos(res.data);
     });
   }, []);
@@ -23,7 +23,7 @@ const Inqulinos = () => {
             <tbody>
               <tr>
                 <th>Nombre</th>
-                <th>Pendiente</th>
+                <th>Pago Mensual</th>
                 <th className="local_column">Local</th>
                 <th>Acciones</th>
               </tr>
@@ -31,18 +31,15 @@ const Inqulinos = () => {
                 inquilinos.map((inq, i) => (
                   <tr key={i}>
                     <td>{inq.nombre}</td>
-                    <td>${inq.deuda}</td>
+                    <td>${inq.valor}</td>
                     <td className="local_column">{inq.local}</td>
                     <td className="actions">
                       <button className="icons_btn">
                         <i className="fa fa-trash" aria-hidden="true"></i>
                       </button>
-                      <button className="icons_btn">
-                        <i className="fa fa-folder-o" aria-hidden="true"></i>
-                      </button>
-                      <button className="icons_btn">
+                      <Link className="icons_btn" to={`/facturas`}>
                         <i className="fa fa-money" aria-hidden="true"></i>
-                      </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}

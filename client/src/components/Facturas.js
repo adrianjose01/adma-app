@@ -2,23 +2,45 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
-// GETTING DATE FROM MYSQL
-// new Date(fecha.slice(0, 4), +fecha.slice(5, 7) - 1, fecha.slice(8, 10))
+import PagarFactura from "./modals/PagarFactura";
 
 const Facturas = () => {
   const [facturas, setFacturas] = useState([]);
+  const [nombres, setNombres] = useState([]);
+  const [filtro, setFiltro] = useState("Todos");
 
   useEffect(() => {
-    axios.get("/get-facturas").then((res) => {
-      setFacturas(res.data.data);
+    axios.get(`/api/get-facturas/${filtro}`).then((res) => {
+      console.log(res.data);
+      setFacturas(res.data);
     });
-  }, []);
+
+    axios
+      .get("/api/get-names")
+      .then((res) => {
+        setNombres(res.data);
+      })
+      .catch((err) => {
+        console.log("Hubo un error recarga la pagina");
+      });
+  }, [filtro]);
 
   return (
     <div className="container">
       <div className="inquilinos_container">
         <h1>Facturas</h1>
+        <div className="filtro">
+          <h4>Filtrar por</h4>{" "}
+          <select onChange={(e) => setFiltro(e.target.value)}>
+            <option value={"Todos"}>Todos</option>
+            {nombres &&
+              nombres.map((f, i) => (
+                <option value={`${f.inquilinosId}`} key={i}>
+                  {f.nombre}
+                </option>
+              ))}
+          </select>
+        </div>
         <div className="inquilinos">
           <table className="inquilinos_table">
             <tbody>
@@ -30,15 +52,18 @@ const Facturas = () => {
               </tr>
               {facturas &&
                 facturas.map((f, i) => {
-                  const fecha = new Date(
-                    f.fecha_factura.slice(0, 4),
-                    +f.fecha_factura.slice(5, 7)
-                  );
                   return (
-                    <tr key={i}>
-                      <td>{f.nombre}</td>
-                      <td>{`${fecha.getMonth()} / ${fecha.getFullYear()}`}</td>
-                      <td>${f.valor}</td>
+                    <tr key={f.facturaId}>
+                      <td>{f.nombre.split(" ")[0]}</td>
+                      <td>{`${f.fecha_factura.slice(
+                        5,
+                        7
+                      )} / ${f.fecha_factura.slice(0, 4)}`}</td>
+                      <td
+                        className={f.valor_pagado === f.valor ? "green" : "red"}
+                      >
+                        ${f.valor}
+                      </td>
                       <td className="actions">
                         <Link
                           to={`/facturas/${f.facturaId}`}
@@ -49,9 +74,7 @@ const Facturas = () => {
                             aria-hidden="true"
                           ></i>
                         </Link>
-                        <button className="icons_btn">
-                          <i className="fa fa-money" aria-hidden="true"></i>
-                        </button>
+                        <PagarFactura factura={f} />
                       </td>
                     </tr>
                   );

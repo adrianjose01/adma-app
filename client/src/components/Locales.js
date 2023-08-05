@@ -11,6 +11,24 @@ const Locales = () => {
       setLocales(res.data.data);
     });
   }, []);
+
+  const handleDelete = (args) => {
+    const id = args[0];
+    if (window.prompt("Ingrese su clave para eliminar el local.") === "adma") {
+      axios
+        .post("/delete-local", { localId: id })
+        .then((res) => {
+          alert("Local Eliminado correctamente!");
+          window.location.reload();
+        })
+        .catch((err) => {
+          alert("No se ha podido eliminar el local seleccionado.");
+        });
+    } else {
+      console.log("Operacion cancelada.");
+    }
+  };
+
   return (
     <div className="container">
       <div className="inquilinos_container">
@@ -34,11 +52,11 @@ const Locales = () => {
                     </td>
                     <td>${loc.valor}</td>
                     <td className="actions">
-                      <button className="icons_btn">
+                      <button
+                        className="icons_btn"
+                        onClickCapture={handleDelete.bind(this, [loc.localId])}
+                      >
                         <i className="fa fa-trash" aria-hidden="true"></i>
-                      </button>
-                      <button className="icons_btn">
-                        <i className="fa fa-folder-o" aria-hidden="true"></i>
                       </button>
                     </td>
                   </tr>
