@@ -3,6 +3,7 @@ import AddInquilinos from "./modals/AddInquilinos";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import EditInquilinos from "./modals/EditInquilinos";
 
 const Inqulinos = () => {
   const [inquilinos, setInquilinos] = useState([]);
@@ -12,6 +13,23 @@ const Inqulinos = () => {
       setInquilinos(res.data);
     });
   }, []);
+
+  const handleDelete = (args) => {
+    const id = args[0];
+    if (window.prompt("Ingrese su clave para eliminar el local.") === "adma") {
+      axios
+        .post("/delete-inq", { inqId: id })
+        .then((res) => {
+          alert("Inquilino Eliminado correctamente!");
+          window.location.reload();
+        })
+        .catch((err) => {
+          alert("No se ha podido eliminar el local seleccionado.");
+        });
+    } else {
+      console.log("Operacion cancelada.");
+    }
+  };
 
   return (
     <div className="container">
@@ -34,9 +52,13 @@ const Inqulinos = () => {
                     <td>${inq.valor}</td>
                     <td className="local_column">{inq.local}</td>
                     <td className="actions">
-                      <button className="icons_btn">
+                      <button
+                        className="icons_btn"
+                        onClick={handleDelete.bind(this, [inq.inquilinosId])}
+                      >
                         <i className="fa fa-trash" aria-hidden="true"></i>
                       </button>
+                      <EditInquilinos inquilino={inq} />
                       <Link className="icons_btn" to={`/facturas`}>
                         <i className="fa fa-money" aria-hidden="true"></i>
                       </Link>

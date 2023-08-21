@@ -74,7 +74,11 @@ const Facturas = () => {
                             aria-hidden="true"
                           ></i>
                         </Link>
-                        <PagarFactura factura={f} />
+                        {f.valor_pagado === f.valor ? (
+                          ""
+                        ) : (
+                          <PagarFactura factura={f} />
+                        )}
                       </td>
                     </tr>
                   );

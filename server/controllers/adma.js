@@ -88,8 +88,24 @@ exports.addInquilino = async (req, res, next) => {
   res.json(datos);
 };
 
+exports.editInqulino = async (req, res, next) => {
+  const { nombre, cedula, telefono, direccion, inqId } = req.body;
+  const datos = await query(
+    `UPDATE inquilinos SET nombre = '${nombre}', cedula = '${cedula}', telefono = '${telefono}', direccion = '${direccion}' WHERE inquilinosId = ${inqId}; `
+  );
+  res.json(datos);
+};
+
 exports.deleteLocal = async (req, res, next) => {
   const { localId } = req.body;
   const datos = await query(`DELETE FROM local WHERE localId = ${localId};`);
+  res.json(datos);
+};
+
+exports.deleteInq = async (req, res, next) => {
+  const { inqId } = req.body;
+  const datos = await query(
+    `DELETE FROM inquilinos WHERE inquilinosId = ${inqId};`
+  );
   res.json(datos);
 };

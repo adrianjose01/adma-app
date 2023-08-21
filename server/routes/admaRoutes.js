@@ -24,6 +24,10 @@ router.post("/pay-factura", admaController.payfactura);
 
 router.post("/add-inquilino", admaController.addInquilino);
 
+router.put("/edit-inquilino", admaController.editInqulino);
+
 router.post("/delete-local", admaController.deleteLocal);
+
+router.post("/delete-inq", admaController.deleteInq);
 
 module.exports = router;

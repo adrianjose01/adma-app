@@ -34,7 +34,7 @@ const generarFactura = async () => {
 generarFactura();
 
 setInterval(async () => {
-  console.log("Running interval");
+  // console.log("Running interval");
   // data.forEach((inq, i) => {
   //   if (
   //     String(inq.fecha_pago).slice(8, 10) === new Date().getSeconds().toString()

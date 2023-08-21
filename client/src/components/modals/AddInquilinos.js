@@ -71,7 +71,7 @@ function AddInquilinos() {
             </label>
             <label className="form_label">
               <span className="label_span">Cedula</span>
-              <input ref={cedulaInquRef} type="number" />
+              <input ref={cedulaInquRef} type="text" />
             </label>
             <label className="form_label">
               <span className="label_span">Telefono</span>
