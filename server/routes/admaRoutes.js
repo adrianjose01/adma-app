@@ -14,6 +14,8 @@ router.get("/get-locales", admaController.getLocales);
 
 router.post("/add-local", admaController.addLocales);
 
+router.put("/api/edit-local", admaController.editLocales);
+
 router.get("/api/get-facturas/:inqId", admaController.getFacturas);
 
 router.get("/get-factura/:facturaId", admaController.getReceiveFactura);

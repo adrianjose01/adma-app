@@ -6,39 +6,39 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 
-const EditLocales = () => {
+const EditLocales = (props) => {
   const [show, setShow] = useState(false);
 
-  const { inquilino } = props;
+  const { local } = props;
 
-  const nameInqRef = useRef();
-  const cedulaInquRef = useRef();
-  const phoneInqRef = useRef();
-  const adressInqRef = useRef();
+  const nameRef = useRef();
+  const valorRef = useRef();
+  const descripcionRef = useRef();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleForm = () => {
-    const nombre = nameInqRef.current.value;
-    const cedula = cedulaInquRef.current.value;
-    const telefono = phoneInqRef.current.value;
-    const direccion = adressInqRef.current.value;
+    const nombre = nameRef.current.value;
+    const monto = valorRef.current.value;
+    const descripcion = descripcionRef.current.value;
+
+    if (nombre === "" || monto === "" || descripcion === "")
+      return alert("Por favor llene todos los campos.");
 
     axios
-      .put("/edit-local", {
+      .put("/api/edit-local", {
         nombre,
-        cedula,
-        telefono,
-        direccion,
-        inqId: inquilino.inquilinosId,
+        monto,
+        descripcion,
+        localId: local.localId,
       })
       .then((res) => {
-        alert("¡Inquilino Editado Exitosamente!");
+        alert("Local editado exitosamente!");
         window.location.reload();
       })
       .catch((err) => {
-        alert("No se pudo editar el inquilino");
+        alert(`Ha ocurrido un error, favor intentarlo luego \n ${err}`);
       });
   };
 
@@ -50,42 +50,25 @@ const EditLocales = () => {
 
       <Modal show={show} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
-          <h2>Agrega un inquilino</h2>
+          <h2>Edita un Local</h2>
         </Modal.Header>
         <Modal.Body>
           <form>
-            <h4>Datos del inquilino</h4>
+            <h4>Datos del Local</h4>
             <label className="form_label">
-              <span className="label_span">Nombre Completo</span>
-              <input
-                ref={nameInqRef}
-                type="text"
-                defaultValue={inquilino.nombre}
-              />
+              <span className="label_span">Nombre</span>
+              <input type="text" ref={nameRef} defaultValue={local.nombre} />
             </label>
             <label className="form_label">
-              <span className="label_span">Cedula</span>
-              <input
-                ref={cedulaInquRef}
-                type="text"
-                defaultValue={inquilino.cedula}
-              />
+              <span className="label_span">Monto</span>
+              <input type="number" ref={valorRef} defaultValue={local.valor} />
             </label>
             <label className="form_label">
-              <span className="label_span">Telefono</span>
-              <input
-                ref={phoneInqRef}
-                type="text"
-                defaultValue={inquilino.telefono}
-              />
-            </label>
-            <label className="form_label">
-              <span className="label_span">Direccion</span>
-              <input
-                ref={adressInqRef}
-                type="text"
-                defaultValue={inquilino.direccion}
-              />
+              <span className="label_span">Descripcion</span>
+              <textarea
+                ref={descripcionRef}
+                defaultValue={local.descripcion}
+              ></textarea>
             </label>
           </form>
         </Modal.Body>
@@ -99,7 +82,7 @@ const EditLocales = () => {
             style={{ backgroundColor: "#1b263b", border: "none" }}
             onClickCapture={handleForm}
           >
-            Guardar Inquilino
+            Guardar Local
           </Button>
         </Modal.Footer>
       </Modal>

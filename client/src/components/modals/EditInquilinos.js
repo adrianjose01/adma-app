@@ -50,7 +50,7 @@ const EditInquilinos = (props) => {
 
       <Modal show={show} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
-          <h2>Agrega un inquilino</h2>
+          <h2>Edita un inquilino</h2>
         </Modal.Header>
         <Modal.Body>
           <form>

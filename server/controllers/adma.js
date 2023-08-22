@@ -44,6 +44,14 @@ exports.addLocales = async (req, res, next) => {
   res.json(datos);
 };
 
+exports.editLocales = async (req, res, next) => {
+  const { nombre, descripcion, monto, localId } = req.body;
+  const datos = await query(
+    `UPDATE local SET nombre = '${nombre}', descripcion = '${descripcion}', valor = ${monto} WHERE localId = ${localId}`
+  );
+  res.json(datos);
+};
+
 exports.getFacturas = async (req, res, next) => {
   const { inqId } = req.params;
   let sql = "";

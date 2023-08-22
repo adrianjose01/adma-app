@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AddLocales from "./modals/AddLocales";
 import axios from "axios";
+import EditLocales from "./modals/EditLocales";
 
 const Locales = () => {
   const [locales, setLocales] = useState([]);
@@ -58,6 +59,7 @@ const Locales = () => {
                       >
                         <i className="fa fa-trash" aria-hidden="true"></i>
                       </button>
+                      <EditLocales local={loc} />
                     </td>
                   </tr>
                 ))}
