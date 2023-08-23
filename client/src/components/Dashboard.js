@@ -11,7 +11,6 @@ const Dashboard = () => {
     if (date.getHours() < 12) {
       setSaludo("Buenos días");
     } else if (date.getHours() > 12 && date.getHours() <= 18) {
-      console.log("Buenas Tardes");
       setSaludo("Buenas tardes");
     } else if (date.getHours() > 18) {
       setSaludo("Buenas noches");
@@ -19,13 +18,12 @@ const Dashboard = () => {
       setSaludo("Hola");
     }
 
-    axios.get("/get-total-pending").then((res) => {
+    axios.get("/api/get-total-pending").then((res) => {
       setPendiente(+res.data[0].totalPendiente);
     });
 
-    axios.get("/get-total-debts").then((res) => {
+    axios.get("/api/get-total-debts").then((res) => {
       setDeudasInq(res.data);
-      console.log(res.data);
     });
   }, []);
 

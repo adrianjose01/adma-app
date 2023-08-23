@@ -9,7 +9,7 @@ const Inqulinos = () => {
   const [inquilinos, setInquilinos] = useState([]);
 
   useEffect(() => {
-    axios.get("/get-inquilinos").then((res) => {
+    axios.get("/api/get-inquilinos").then((res) => {
       setInquilinos(res.data);
     });
   }, []);
@@ -18,7 +18,7 @@ const Inqulinos = () => {
     const id = args[0];
     if (window.prompt("Ingrese su clave para eliminar el local.") === "adma") {
       axios
-        .post("/delete-inq", { inqId: id })
+        .post("/api/delete-inq", { inqId: id })
         .then((res) => {
           alert("Inquilino Eliminado correctamente!");
           window.location.reload();
@@ -27,7 +27,7 @@ const Inqulinos = () => {
           alert("No se ha podido eliminar el local seleccionado.");
         });
     } else {
-      console.log("Operacion cancelada.");
+      alert("Operacion cancelada.");
     }
   };
 

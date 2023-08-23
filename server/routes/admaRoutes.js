@@ -4,32 +4,32 @@ const router = express.Router();
 
 router.get("/api/get-names", admaController.getFiltroNombreFactura);
 
-router.get("/get-total-pending", admaController.getTotalPending);
+router.get("/api/get-total-pending", admaController.getTotalPending);
 
-router.get("/get-total-debts", admaController.getTotalIndividualDebts);
+router.get("/api/get-total-debts", admaController.getTotalIndividualDebts);
 
-router.get("/get-inquilinos", admaController.getInquilinos);
+router.get("/api/get-inquilinos", admaController.getInquilinos);
 
-router.get("/get-locales", admaController.getLocales);
+router.get("/api/get-locales", admaController.getLocales);
 
-router.post("/add-local", admaController.addLocales);
+router.post("/api/add-local", admaController.addLocales);
 
 router.put("/api/edit-local", admaController.editLocales);
 
 router.get("/api/get-facturas/:inqId", admaController.getFacturas);
 
-router.get("/get-factura/:facturaId", admaController.getReceiveFactura);
+router.get("/api/get-factura/:facturaId", admaController.getReceiveFactura);
 
-router.get("/get-debt/:inqId", admaController.getdebt);
+router.get("/api/get-debt/:inqId", admaController.getdebt);
 
-router.post("/pay-factura", admaController.payfactura);
+router.post("/api/pay-factura", admaController.payfactura);
 
-router.post("/add-inquilino", admaController.addInquilino);
+router.post("/api/add-inquilino", admaController.addInquilino);
 
-router.put("/edit-inquilino", admaController.editInqulino);
+router.put("/api/edit-inquilino", admaController.editInqulino);
 
-router.post("/delete-local", admaController.deleteLocal);
+router.post("/api/delete-local", admaController.deleteLocal);
 
-router.post("/delete-inq", admaController.deleteInq);
+router.post("/api/delete-inq", admaController.deleteInq);
 
 module.exports = router;

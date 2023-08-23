@@ -8,7 +8,7 @@ const Locales = () => {
   const [locales, setLocales] = useState([]);
 
   useEffect(() => {
-    axios.get("/get-locales").then((res) => {
+    axios.get("/api/get-locales").then((res) => {
       setLocales(res.data.data);
     });
   }, []);
@@ -17,7 +17,7 @@ const Locales = () => {
     const id = args[0];
     if (window.prompt("Ingrese su clave para eliminar el local.") === "adma") {
       axios
-        .post("/delete-local", { localId: id })
+        .post("/api/delete-local", { localId: id })
         .then((res) => {
           alert("Local Eliminado correctamente!");
           window.location.reload();
@@ -26,7 +26,7 @@ const Locales = () => {
           alert("No se ha podido eliminar el local seleccionado.");
         });
     } else {
-      console.log("Operacion cancelada.");
+      alert("Operacion cancelada.");
     }
   };
 

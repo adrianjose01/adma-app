@@ -16,7 +16,7 @@ function PagarFactura({ factura }) {
   const handleSaveLocal = () => {
     const valor = +valorRef.current.value + factura.valor_pagado;
     axios
-      .post("/pay-factura", {
+      .post("/api/pay-factura", {
         facturaId: factura.facturaId,
         valorPagado: valor,
       })

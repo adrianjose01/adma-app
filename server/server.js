@@ -11,45 +11,36 @@ app.use(
 const query = require("./dbHelpers/query");
 
 const admaRoutes = require("./routes/admaRoutes");
+const emptyOrRows = require("./dbHelpers/emptyOrRows");
 
 app.use(admaRoutes);
 
-let data = [];
-
 const generarFactura = async () => {
-  data = await query(
-    "SELECT I.inquilinosId, I.nombre, I.fecha_pago, I.cedula, I.direccion, I.telefono, L.nombre AS local, L.valor FROM inquilinos I INNER JOIN local L ON I.localId = L.localId GROUP BY inquilinosId;"
+  return await emptyOrRows(
+    query(
+      "SELECT I.inquilinosId, I.nombre, I.fecha_pago, I.cedula, I.direccion, I.telefono, L.nombre AS local, L.valor FROM inquilinos I INNER JOIN local L ON I.localId = L.localId GROUP BY inquilinosId;"
+    )
   );
-
-  // data.forEach((inq, i) => {
-  //   if (
-  //     String(inq.fecha_pago).slice(8, 10) ==
-  //     new Date().toLocaleTimeString().slice(6, 8)
-  //   ) {
-  //     console.log("Generando Factura");
-  //   }
-  // });
 };
 
-generarFactura();
-
 setInterval(async () => {
-  // console.log("Running interval");
-  // data.forEach((inq, i) => {
-  //   if (
-  //     String(inq.fecha_pago).slice(8, 10) === new Date().getSeconds().toString()
-  //   ) {
-  //     console.log(inq);
-  //     query(
-  //       `INSERT INTO facturas(nombre, valor, fecha_factura, valor_pagado, inquilinosId) VALUES ('${
-  //         inq.nombre
-  //       }', ${inq.valor}, '${new Date().toISOString().slice(0, 10)}', 0, ${
-  //         inq.inquilinosId
-  //       });`
-  //     );
-  //   }
-  // });
-}, 10000);
+  const data = await generarFactura();
+  data.forEach(async (inq, i) => {
+    let newDate = new Date(inq.fecha_pago);
+    const today = new Date();
+    if (newDate.getDate() === today.getDate()) {
+      await query(
+        `INSERT INTO facturas(nombre, valor, fecha_factura, valor_pagado, inquilinosId) VALUES ('${
+          inq.nombre
+        }', ${
+          inq.valor
+        }, '${today.getFullYear()}-${today.getMonth()}-${today.getDate()}', 0, ${
+          inq.inquilinosId
+        });`
+      );
+    }
+  });
+}, 86400000);
 
 const PORT = 5000;
 app.listen(PORT, () => {

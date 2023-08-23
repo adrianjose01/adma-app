@@ -15,6 +15,12 @@ function AddInquilinos() {
   const adressInqRef = useRef();
   const localIdRef = useRef();
 
+  // INFORMACION DEL GARANTE
+  const nombreGaranteRef = useRef();
+  const cedulaGaranteRef = useRef();
+  const telefonoGaranteRef = useRef();
+  const direccionGaranteRef = useRef();
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -23,14 +29,37 @@ function AddInquilinos() {
   const handleForm = () => {
     const date = new Date();
 
+    const nombre = nameInqRef.current.value;
+    const cedula = cedulaInquRef.current.value;
+    const telefono = phoneInqRef.current.value;
+    const direccion = adressInqRef.current.value;
+    const localId = localIdRef.current.value;
+    const nombreGarante = nombreGaranteRef.current.value;
+    const cedulaGarante = cedulaGaranteRef.current.value;
+    const telefonoGarante = telefonoGaranteRef.current.value;
+    const direccionGarante = direccionGaranteRef.current.value;
+
+    if (
+      nombre === "" ||
+      cedula === "" ||
+      telefono === "" ||
+      direccion === "" ||
+      localId === ""
+    )
+      return alert("Favor llene todos los campos");
+
     axios
-      .post("/add-inquilino", {
-        nombre: nameInqRef.current.value,
-        cedula: cedulaInquRef.current.value,
-        telefono: phoneInqRef.current.value,
-        direccion: adressInqRef.currentvalue,
-        localId: localIdRef.current.value,
+      .post("/api/add-inquilino", {
+        nombre,
+        cedula,
+        telefono,
+        direccion,
+        localId,
         fecha: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+        nombreGarante,
+        cedulaGarante,
+        telefonoGarante,
+        direccionGarante,
       })
       .then((res) => {
         alert("¡Inquilino Agregado Exitosamente!");
@@ -42,7 +71,7 @@ function AddInquilinos() {
   };
 
   useEffect(() => {
-    axios.get("/get-locales").then((res) => {
+    axios.get("/api/get-locales").then((res) => {
       setLocales(res.data.data);
     });
   }, []);
@@ -95,19 +124,19 @@ function AddInquilinos() {
             <h4>Datos del Garante</h4>
             <label className="form_label">
               <span className="label_span">Nombre Completo</span>
-              <input type="text" />
+              <input type="text" ref={nombreGaranteRef} defaultValue={""} />
             </label>
             <label className="form_label">
               <span className="label_span">Cedula</span>
-              <input type="number" />
+              <input type="text" ref={cedulaGaranteRef} defaultValue={""} />
             </label>
             <label className="form_label">
               <span className="label_span">Telefono</span>
-              <input type="text" />
+              <input type="text" ref={telefonoGaranteRef} defaultValue={""} />
             </label>
             <label className="form_label">
               <span className="label_span">Direccion</span>
-              <input type="text" />
+              <input type="text" ref={direccionGaranteRef} defaultValue={""} />
             </label>
           </form>
         </Modal.Body>

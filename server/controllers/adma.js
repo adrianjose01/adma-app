@@ -25,7 +25,7 @@ exports.getTotalIndividualDebts = async (req, res, next) => {
 
 exports.getInquilinos = async (req, res, next) => {
   const inqulinos = await query(
-    "SELECT I.inquilinosId, I.nombre, I.fecha_pago, I.cedula, I.direccion, I.telefono, L.nombre AS local, L.valor FROM inquilinos I INNER JOIN local L ON I.localId = L.localId GROUP BY inquilinosId;"
+    "SELECT I.inquilinosId, I.nombre, I.fecha_pago, I.cedula, I.direccion, I.telefono, L.nombre AS local, L.valor, I.nombreGarante, I.cedulaGarante, I.telefonoGarante, I.direccionGarante FROM inquilinos I INNER JOIN local L ON I.localId = L.localId GROUP BY inquilinosId;"
   );
 
   res.json(emptyOrRows(inqulinos));
@@ -89,17 +89,38 @@ exports.payfactura = async (req, res, next) => {
 };
 
 exports.addInquilino = async (req, res, next) => {
-  const { nombre, cedula, telefono, direccion, localId, fecha } = req.body;
+  const {
+    nombre,
+    cedula,
+    telefono,
+    direccion,
+    localId,
+    fecha,
+    nombreGarante,
+    cedulaGarante,
+    telefonoGarante,
+    direccionGarante,
+  } = req.body;
   const datos = await query(
-    `INSERT INTO inquilinos(nombre, cedula, telefono, direccion, localId, fecha_pago) VALUES ('${nombre}', '${cedula}', '${telefono}', '${direccion}', ${localId}, '${fecha}')`
+    `INSERT INTO inquilinos(nombre, cedula, telefono, direccion, localId, fecha_pago, nombreGarante, cedulaGarante, telefonoGarante, direccionGarante) VALUES ('${nombre}', '${cedula}', '${telefono}', '${direccion}', ${localId}, '${fecha}', '${nombreGarante}', '${cedulaGarante}', '${telefonoGarante}', '${direccionGarante}')`
   );
   res.json(datos);
 };
 
 exports.editInqulino = async (req, res, next) => {
-  const { nombre, cedula, telefono, direccion, inqId } = req.body;
+  const {
+    nombre,
+    cedula,
+    telefono,
+    direccion,
+    inqId,
+    nombreGarante,
+    cedulaGarante,
+    telefonoGarante,
+    direccionGarante,
+  } = req.body;
   const datos = await query(
-    `UPDATE inquilinos SET nombre = '${nombre}', cedula = '${cedula}', telefono = '${telefono}', direccion = '${direccion}' WHERE inquilinosId = ${inqId}; `
+    `UPDATE inquilinos SET nombre = '${nombre}', cedula = '${cedula}', telefono = '${telefono}', direccion = '${direccion}', nombreGarante = '${nombreGarante}', cedulaGarante = '${cedulaGarante}', telefonoGarante = '${telefonoGarante}', direccionGarante = '${direccionGarante}' WHERE inquilinosId = ${inqId}; `
   );
   res.json(datos);
 };

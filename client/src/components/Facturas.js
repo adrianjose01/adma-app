@@ -11,7 +11,6 @@ const Facturas = () => {
 
   useEffect(() => {
     axios.get(`/api/get-facturas/${filtro}`).then((res) => {
-      console.log(res.data);
       setFacturas(res.data);
     });
 
@@ -21,7 +20,7 @@ const Facturas = () => {
         setNombres(res.data);
       })
       .catch((err) => {
-        console.log("Hubo un error recarga la pagina");
+        alert("Hubo un error recarga la pagina");
       });
   }, [filtro]);
 

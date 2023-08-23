@@ -10,9 +10,9 @@ function FacturaReceive() {
   const [deuda, setDeuda] = useState();
 
   useEffect(() => {
-    axios.get(`/get-factura/${facturaId}`).then((res) => {
+    axios.get(`/api/get-factura/${facturaId}`).then((res) => {
       setFactura(res.data);
-      axios.get(`/get-debt/${res.data[0].inquilinosId}`).then((res) => {
+      axios.get(`/api/get-debt/${res.data[0].inquilinosId}`).then((res) => {
         setDeuda(res.data);
       });
     });

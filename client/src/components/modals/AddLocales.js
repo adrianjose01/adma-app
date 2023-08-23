@@ -20,14 +20,16 @@ function AddLocales() {
     const descripcion = descripcionRef.current.value;
     const valor = +valorRef.current.value;
 
+    if (nombre === "" || descripcion === "" || valorRef.current.value === "")
+      return alert("Favor llenar todos los campos");
+
     const data = {
       nombre,
       descripcion,
       valor,
     };
 
-    axios.post("/add-local", data).then((res) => {
-      console.log(data);
+    axios.post("/api/add-local", data).then((res) => {
       alert("Local agregado exitosamente!");
       window.location.reload();
     });
