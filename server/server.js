@@ -8,6 +8,10 @@ app.use(
     extended: true,
   })
 );
+
+const cors = require("cors");
+app.use(cors());
+
 const query = require("./dbHelpers/query");
 
 const admaRoutes = require("./routes/admaRoutes");

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_URL } from "../dbconfig";
 
 const Dashboard = () => {
   const [saludo, setSaludo] = useState("");
@@ -18,11 +19,11 @@ const Dashboard = () => {
       setSaludo("Hola");
     }
 
-    axios.get("/api/get-total-pending").then((res) => {
+    axios.get(API_URL + "/api/get-total-pending").then((res) => {
       setPendiente(+res.data[0].totalPendiente);
     });
 
-    axios.get("/api/get-total-debts").then((res) => {
+    axios.get(API_URL + "/api/get-total-debts").then((res) => {
       setDeudasInq(res.data);
     });
   }, []);
