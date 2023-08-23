@@ -43,6 +43,7 @@ setInterval(async () => {
 }, 86400000);
 
 const PORT = 5000;
+
 app.listen(PORT, () => {
   console.log(`Server running in the port: ${PORT}`);
 });
