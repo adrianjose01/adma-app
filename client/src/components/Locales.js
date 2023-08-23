@@ -3,12 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AddLocales from "./modals/AddLocales";
 import axios from "axios";
 import EditLocales from "./modals/EditLocales";
+import { API_URL } from "../dbconfig";
 
 const Locales = () => {
   const [locales, setLocales] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/get-locales").then((res) => {
+    axios.get(API_URL + "/api/get-locales").then((res) => {
       setLocales(res.data.data);
     });
   }, []);
@@ -17,7 +18,7 @@ const Locales = () => {
     const id = args[0];
     if (window.prompt("Ingrese su clave para eliminar el local.") === "adma") {
       axios
-        .post("/api/delete-local", { localId: id })
+        .post(API_URL + "/api/delete-local", { localId: id })
         .then((res) => {
           alert("Local Eliminado correctamente!");
           window.location.reload();

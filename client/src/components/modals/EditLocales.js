@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { API_URL } from "../../dbconfig";
 
 const EditLocales = (props) => {
   const [show, setShow] = useState(false);
@@ -27,7 +28,7 @@ const EditLocales = (props) => {
       return alert("Por favor llene todos los campos.");
 
     axios
-      .put("/api/edit-local", {
+      .put(API_URL + "/api/edit-local", {
         nombre,
         monto,
         descripcion,

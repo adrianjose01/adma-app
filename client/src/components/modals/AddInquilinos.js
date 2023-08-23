@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { API_URL } from "../../dbconfig";
 
 function AddInquilinos() {
   const [show, setShow] = useState(false);
@@ -49,7 +50,7 @@ function AddInquilinos() {
       return alert("Favor llene todos los campos");
 
     axios
-      .post("/api/add-inquilino", {
+      .post(API_URL + "/api/add-inquilino", {
         nombre,
         cedula,
         telefono,
@@ -71,7 +72,7 @@ function AddInquilinos() {
   };
 
   useEffect(() => {
-    axios.get("/api/get-locales").then((res) => {
+    axios.get(API_URL + "/api/get-locales").then((res) => {
       setLocales(res.data.data);
     });
   }, []);

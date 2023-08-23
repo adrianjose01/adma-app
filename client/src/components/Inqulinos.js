@@ -4,12 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import EditInquilinos from "./modals/EditInquilinos";
+import { API_URL } from "../dbconfig";
 
 const Inqulinos = () => {
   const [inquilinos, setInquilinos] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/get-inquilinos").then((res) => {
+    axios.get(API_URL + "/api/get-inquilinos").then((res) => {
       setInquilinos(res.data);
     });
   }, []);
@@ -18,7 +19,7 @@ const Inqulinos = () => {
     const id = args[0];
     if (window.prompt("Ingrese su clave para eliminar el local.") === "adma") {
       axios
-        .post("/api/delete-inq", { inqId: id })
+        .post(API_URL + "/api/delete-inq", { inqId: id })
         .then((res) => {
           alert("Inquilino Eliminado correctamente!");
           window.location.reload();

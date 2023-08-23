@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import axios from "axios";
+import { API_URL } from "../../dbconfig";
 
 function AddLocales() {
   const [show, setShow] = useState(false);
@@ -29,7 +30,7 @@ function AddLocales() {
       valor,
     };
 
-    axios.post("/api/add-local", data).then((res) => {
+    axios.post(API_URL + "/api/add-local", data).then((res) => {
       alert("Local agregado exitosamente!");
       window.location.reload();
     });

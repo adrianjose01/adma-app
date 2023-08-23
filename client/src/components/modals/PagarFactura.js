@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import axios from "axios";
+import { API_URL } from "../../dbconfig";
 
 function PagarFactura({ factura }) {
   const [show, setShow] = useState(false);
@@ -16,7 +17,7 @@ function PagarFactura({ factura }) {
   const handleSaveLocal = () => {
     const valor = +valorRef.current.value + factura.valor_pagado;
     axios
-      .post("/api/pay-factura", {
+      .post(API_URL + "/api/pay-factura", {
         facturaId: factura.facturaId,
         valorPagado: valor,
       })

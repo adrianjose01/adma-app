@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { API_URL } from "../../dbconfig";
 
 const EditInquilinos = (props) => {
   const [show, setShow] = useState(false);
@@ -37,7 +38,7 @@ const EditInquilinos = (props) => {
       return alert("Por favor llene todos los campos");
 
     axios
-      .put("/api/edit-inquilino", {
+      .put(API_URL + "/api/edit-inquilino", {
         nombre,
         cedula,
         telefono,

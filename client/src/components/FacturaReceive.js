@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../images/logo.svg";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { API_URL } from "../dbconfig";
 
 function FacturaReceive() {
   const { facturaId } = useParams();
@@ -10,11 +11,13 @@ function FacturaReceive() {
   const [deuda, setDeuda] = useState();
 
   useEffect(() => {
-    axios.get(`/api/get-factura/${facturaId}`).then((res) => {
+    axios.get(`${API_URL}/api/get-factura/${facturaId}`).then((res) => {
       setFactura(res.data);
-      axios.get(`/api/get-debt/${res.data[0].inquilinosId}`).then((res) => {
-        setDeuda(res.data);
-      });
+      axios
+        .get(`${API_URL}/api/get-debt/${res.data[0].inquilinosId}`)
+        .then((res) => {
+          setDeuda(res.data);
+        });
     });
   }, [facturaId]);
   return (
@@ -29,7 +32,9 @@ function FacturaReceive() {
             <div className="receive_container" key={f.facturaId}>
               <header>
                 <section className="receive_logo">
-                  <img src={logo} alt="logo" />
+                  <Link to={"/"}>
+                    <img src={logo} alt="logo" />
+                  </Link>
                 </section>
                 <h1 className="receive_title">{`Factura #${facturaId}`}</h1>
               </header>

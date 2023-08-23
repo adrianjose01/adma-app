@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import PagarFactura from "./modals/PagarFactura";
+import { API_URL } from "../dbconfig";
 
 const Facturas = () => {
   const [facturas, setFacturas] = useState([]);
@@ -10,12 +11,12 @@ const Facturas = () => {
   const [filtro, setFiltro] = useState("Todos");
 
   useEffect(() => {
-    axios.get(`/api/get-facturas/${filtro}`).then((res) => {
+    axios.get(`${API_URL}/api/get-facturas/${filtro}`).then((res) => {
       setFacturas(res.data);
     });
 
     axios
-      .get("/api/get-names")
+      .get(API_URL + "/api/get-names")
       .then((res) => {
         setNombres(res.data);
       })
