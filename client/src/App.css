@@ -310,4 +310,7 @@ td {
   .icons_btn i {
     font-size: 2rem;
   }
+  .inqulinos_widget {
+    margin-bottom: 3rem;
+  }
 }
