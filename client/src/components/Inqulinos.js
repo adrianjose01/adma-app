@@ -5,9 +5,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import EditInquilinos from "./modals/EditInquilinos";
 import { API_URL } from "../dbconfig";
+import { useNavigate } from "react-router-dom";
 
 const Inqulinos = () => {
   const [inquilinos, setInquilinos] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(API_URL + "/api/get-inquilinos").then((res) => {
@@ -22,7 +25,7 @@ const Inqulinos = () => {
         .post(API_URL + "/api/delete-inq", { inqId: id })
         .then((res) => {
           alert("Inquilino Eliminado correctamente!");
-          window.location.reload();
+          navigate("/");
         })
         .catch((err) => {
           alert("No se ha podido eliminar el local seleccionado.");

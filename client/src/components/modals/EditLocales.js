@@ -6,9 +6,12 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import { API_URL } from "../../dbconfig";
+import { useNavigate } from "react-router-dom";
 
 const EditLocales = (props) => {
   const [show, setShow] = useState(false);
+
+  const navigate = useNavigate();
 
   const { local } = props;
 
@@ -36,7 +39,7 @@ const EditLocales = (props) => {
       })
       .then((res) => {
         alert("Local editado exitosamente!");
-        window.location.reload();
+        navigate("/");
       })
       .catch((err) => {
         alert(`Ha ocurrido un error, favor intentarlo luego \n ${err}`);

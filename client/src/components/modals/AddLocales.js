@@ -6,12 +6,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import axios from "axios";
 import { API_URL } from "../../dbconfig";
+import { useNavigate } from "react-router-dom";
 
 function AddLocales() {
   const [show, setShow] = useState(false);
   const nameRef = useRef();
   const valorRef = useRef();
   const descripcionRef = useRef();
+
+  const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -32,7 +35,7 @@ function AddLocales() {
 
     axios.post(API_URL + "/api/add-local", data).then((res) => {
       alert("Local agregado exitosamente!");
-      window.location.reload();
+      navigate("/");
     });
   };
 

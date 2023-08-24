@@ -6,10 +6,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import axios from "axios";
 import { API_URL } from "../../dbconfig";
+import { useNavigate } from "react-router-dom";
 
 function PagarFactura({ factura }) {
   const [show, setShow] = useState(false);
   const valorRef = useRef();
+
+  const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -23,7 +26,7 @@ function PagarFactura({ factura }) {
       })
       .then((res) => {
         alert("¡Factura Actualizada Exitosamente!");
-        window.location.reload();
+        navigate("/");
       });
   };
 

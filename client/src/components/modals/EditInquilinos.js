@@ -6,9 +6,12 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import { API_URL } from "../../dbconfig";
+import { useNavigate } from "react-router-dom";
 
 const EditInquilinos = (props) => {
   const [show, setShow] = useState(false);
+
+  const navigate = useNavigate();
 
   const { inquilino } = props;
 
@@ -51,7 +54,7 @@ const EditInquilinos = (props) => {
       })
       .then((res) => {
         alert("¡Inquilino Editado Exitosamente!");
-        window.location.reload();
+        navigate("/");
       })
       .catch((err) => {
         alert("No se pudo editar el inquilino");

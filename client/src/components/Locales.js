@@ -4,9 +4,12 @@ import AddLocales from "./modals/AddLocales";
 import axios from "axios";
 import EditLocales from "./modals/EditLocales";
 import { API_URL } from "../dbconfig";
+import { useNavigate } from "react-router-dom";
 
 const Locales = () => {
   const [locales, setLocales] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(API_URL + "/api/get-locales").then((res) => {
@@ -21,7 +24,7 @@ const Locales = () => {
         .post(API_URL + "/api/delete-local", { localId: id })
         .then((res) => {
           alert("Local Eliminado correctamente!");
-          window.location.reload();
+          navigate("/");
         })
         .catch((err) => {
           alert("No se ha podido eliminar el local seleccionado.");
