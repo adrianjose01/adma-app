@@ -5,16 +5,20 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../dbconfig";
 
 function AddInquilinos() {
   const [show, setShow] = useState(false);
+
+  const navigate = useNavigate();
 
   const nameInqRef = useRef();
   const cedulaInquRef = useRef();
   const phoneInqRef = useRef();
   const adressInqRef = useRef();
   const localIdRef = useRef();
+  const dateRef = useRef();
 
   // INFORMACION DEL GARANTE
   const nombreGaranteRef = useRef();
@@ -28,13 +32,12 @@ function AddInquilinos() {
   const [locales, setLocales] = useState([]);
 
   const handleForm = () => {
-    const date = new Date();
-
     const nombre = nameInqRef.current.value;
     const cedula = cedulaInquRef.current.value;
     const telefono = phoneInqRef.current.value;
     const direccion = adressInqRef.current.value;
     const localId = localIdRef.current.value;
+    const fecha = dateRef.current.value;
     const nombreGarante = nombreGaranteRef.current.value;
     const cedulaGarante = cedulaGaranteRef.current.value;
     const telefonoGarante = telefonoGaranteRef.current.value;
@@ -56,7 +59,7 @@ function AddInquilinos() {
         telefono,
         direccion,
         localId,
-        fecha: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+        fecha,
         nombreGarante,
         cedulaGarante,
         telefonoGarante,
@@ -64,7 +67,7 @@ function AddInquilinos() {
       })
       .then((res) => {
         alert("¡Inquilino Agregado Exitosamente!");
-        window.location.reload();
+        navigate("/");
       })
       .catch((err) => {
         alert(`No se agregar al Inquilino! ${err}`);
@@ -110,6 +113,10 @@ function AddInquilinos() {
             <label className="form_label">
               <span className="label_span">Direccion</span>
               <input ref={adressInqRef} type="text" />
+            </label>
+            <label className="form_label">
+              <span className="label_span">fecha</span>
+              <input ref={dateRef} type="date" />
             </label>
             <label className="form_label">
               <span className="label_span">Local</span>
