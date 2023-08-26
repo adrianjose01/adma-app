@@ -271,7 +271,7 @@ td {
   background-color: red;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 735px) {
   #root {
     display: block;
     width: 100%;
@@ -282,7 +282,11 @@ td {
     height: fit-content;
   }
   .logo {
-    width: 100vw;
+    width: 95vw;
+    padding: 0;
+  }
+  .logo img {
+    max-width: 300px;
   }
   .container {
     width: 100vw;
