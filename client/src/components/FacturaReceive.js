@@ -36,7 +36,7 @@ function FacturaReceive() {
                     <img src={logo} alt="logo" />
                   </Link>
                 </section>
-                <h1 className="receive_title">{`Factura #${facturaId}`}</h1>
+                <h1 className="receive_title">{`Recibo #${facturaId}`}</h1>
               </header>
               <main>
                 <p>
