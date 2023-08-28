@@ -5,8 +5,6 @@ const inquilinosController = require("../controllers/inquilinos");
 const facturasController = require("../controllers/facturas");
 const router = express.Router();
 
-router.get("/api/get-names", admaController.getFiltroNombreFactura);
-
 router.get("/api/get-total-pending", admaController.getTotalPending);
 
 router.get("/api/get-total-debts", admaController.getTotalIndividualDebts);
@@ -14,6 +12,8 @@ router.get("/api/get-total-debts", admaController.getTotalIndividualDebts);
 router.get("/api/get-debt/:inqId", admaController.getdebt);
 
 // FACTURA RELATED
+router.get("/api/get-names", facturasController.getFiltroNombreFactura);
+
 router.get("/api/get-facturas/:inqId", facturasController.getFacturas);
 
 router.get("/api/get-factura/:facturaId", facturasController.getReceiveFactura);

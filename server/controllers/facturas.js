@@ -2,6 +2,13 @@ const query = require("../dbHelpers/query");
 const getMultiple = require("../dbHelpers/getMultiple");
 const emptyOrRows = require("../dbHelpers/emptyOrRows");
 
+exports.getFiltroNombreFactura = async (req, res, next) => {
+  const data = await query(
+    "SELECT DISTINCT nombre, inquilinosId FROM facturas;"
+  );
+  res.send(emptyOrRows(data));
+};
+
 exports.payfactura = async (req, res, next) => {
   const { valorPagado, facturaId } = req.body;
   const datos = await query(

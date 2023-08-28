@@ -1,13 +1,6 @@
 const query = require("../dbHelpers/query");
 const emptyOrRows = require("../dbHelpers/emptyOrRows");
 
-exports.getFiltroNombreFactura = async (req, res, next) => {
-  const data = await query(
-    "SELECT DISTINCT nombre, inquilinosId FROM facturas;"
-  );
-  res.send(emptyOrRows(data));
-};
-
 exports.getTotalPending = async (req, res, next) => {
   const totalPending = await query(
     "SELECT SUM(valor) - SUM(valor_pagado) AS totalPendiente FROM facturas WHERE paga = 0;"
