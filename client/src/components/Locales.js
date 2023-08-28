@@ -13,7 +13,7 @@ const Locales = () => {
 
   useEffect(() => {
     axios.get(API_URL + "/api/get-locales").then((res) => {
-      setLocales(res.data.data);
+      setLocales(res.data);
     });
   }, []);
 
