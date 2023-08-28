@@ -1,5 +1,4 @@
 const query = require("../dbHelpers/query");
-const getMultiple = require("../dbHelpers/getMultiple");
 
 exports.deleteLocal = async (req, res, next) => {
   const { localId } = req.body;
@@ -8,7 +7,7 @@ exports.deleteLocal = async (req, res, next) => {
 };
 
 exports.getLocales = async (req, res, next) => {
-  const locales = await getMultiple("local");
+  const locales = await query("SELECT * FROM local");
   res.json(locales);
 };
 

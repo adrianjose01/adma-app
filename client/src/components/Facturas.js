@@ -11,7 +11,7 @@ const Facturas = () => {
   const [filtro, setFiltro] = useState("Todos");
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/get-facturas/${filtro}`).then((res) => {
+    axios.get(`${AP}/api/get-facturas/${filtro}`).then((res) => {
       setFacturas(res.data);
     });
 

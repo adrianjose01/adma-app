@@ -1,5 +1,4 @@
 const query = require("../dbHelpers/query");
-const getMultiple = require("../dbHelpers/getMultiple");
 const emptyOrRows = require("../dbHelpers/emptyOrRows");
 
 exports.getFiltroNombreFactura = async (req, res, next) => {
@@ -22,7 +21,7 @@ exports.getFacturas = async (req, res, next) => {
   const { inqId } = req.params;
   let datos = "";
   if (inqId === "Todos") {
-    datos = await getMultiple("facturas");
+    datos = await query("SELECT * FROM facturas");
   } else {
     datos = await query(`SELECT * FROM facturas where inquilinosId = ?`, [
       inqId,
