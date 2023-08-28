@@ -1,6 +1,5 @@
 const query = require("../dbHelpers/query");
 const emptyOrRows = require("../dbHelpers/emptyOrRows");
-const getMultiple = require("../dbHelpers/getMultiple");
 
 exports.getFiltroNombreFactura = async (req, res, next) => {
   const data = await query(
@@ -23,118 +22,12 @@ exports.getTotalIndividualDebts = async (req, res, next) => {
   res.json(totalDebts);
 };
 
-exports.getInquilinos = async (req, res, next) => {
-  const inqulinos = await query(
-    "SELECT I.inquilinosId, I.nombre, I.fecha_pago, I.cedula, I.direccion, I.telefono, L.nombre AS local, L.valor, I.nombreGarante, I.cedulaGarante, I.telefonoGarante, I.direccionGarante FROM inquilinos I INNER JOIN local L ON I.localId = L.localId GROUP BY inquilinosId;"
-  );
-
-  res.json(emptyOrRows(inqulinos));
-};
-
-exports.getLocales = async (req, res, next) => {
-  const locales = await getMultiple("local");
-  res.json(locales);
-};
-
-exports.addLocales = async (req, res, next) => {
-  const { nombre, descripcion, valor } = req.body;
-  const datos = await query(
-    `INSERT INTO local(nombre, descripcion, valor) VALUES ("${nombre}", "${descripcion}", ${valor});`
-  );
-  res.json(datos);
-};
-
-exports.editLocales = async (req, res, next) => {
-  const { nombre, descripcion, monto, localId } = req.body;
-  const datos = await query(
-    `UPDATE local SET nombre = '${nombre}', descripcion = '${descripcion}', valor = ${monto} WHERE localId = ${localId}`
-  );
-  res.json(datos);
-};
-
-exports.getFacturas = async (req, res, next) => {
-  const { inqId } = req.params;
-  let sql = "";
-  if (inqId === "Todos") {
-    sql = `SELECT * FROM facturas`;
-  } else {
-    sql = `SELECT * FROM facturas where inquilinosId = ${inqId}`;
-  }
-
-  res.json(emptyOrRows(await query(sql)));
-};
-
-exports.getReceiveFactura = async (req, res, next) => {
-  const { facturaId } = req.params;
-  const datos = await query(
-    `SELECT * FROM facturas WHERE facturaId = ${facturaId};`
-  );
-  res.json(emptyOrRows(datos));
-};
-
 exports.getdebt = async (req, res, next) => {
   const { inqId } = req.params;
-  const data =
-    await query(`SELECT I.nombre, SUM(F.valor) - SUM(F.valor_pagado) AS deuda FROM inquilinos I INNER JOIN facturas F ON I.inquilinosId = F.inquilinosId WHERE I.inquilinosId = ${inqId} GROUP BY I.nombre;
-  `);
+  const data = await query(
+    `SELECT I.nombre, SUM(F.valor) - SUM(F.valor_pagado) AS deuda FROM inquilinos I INNER JOIN facturas F ON I.inquilinosId = F.inquilinosId WHERE I.inquilinosId = ? GROUP BY I.nombre;
+  `,
+    [inqId]
+  );
   res.json(emptyOrRows(data));
-};
-
-exports.payfactura = async (req, res, next) => {
-  const { valorPagado, facturaId } = req.body;
-  const datos = await query(
-    `UPDATE facturas SET valor_pagado = ${valorPagado} WHERE facturaId = ${facturaId};`
-  );
-  res.json(datos);
-};
-
-exports.addInquilino = async (req, res, next) => {
-  const {
-    nombre,
-    cedula,
-    telefono,
-    direccion,
-    localId,
-    fecha,
-    nombreGarante,
-    cedulaGarante,
-    telefonoGarante,
-    direccionGarante,
-  } = req.body;
-  const datos = await query(
-    `INSERT INTO inquilinos(nombre, cedula, telefono, direccion, localId, fecha_pago, nombreGarante, cedulaGarante, telefonoGarante, direccionGarante) VALUES ('${nombre}', '${cedula}', '${telefono}', '${direccion}', ${localId}, '${fecha}', '${nombreGarante}', '${cedulaGarante}', '${telefonoGarante}', '${direccionGarante}')`
-  );
-  res.json(datos);
-};
-
-exports.editInqulino = async (req, res, next) => {
-  const {
-    nombre,
-    cedula,
-    telefono,
-    direccion,
-    inqId,
-    nombreGarante,
-    cedulaGarante,
-    telefonoGarante,
-    direccionGarante,
-  } = req.body;
-  const datos = await query(
-    `UPDATE inquilinos SET nombre = '${nombre}', cedula = '${cedula}', telefono = '${telefono}', direccion = '${direccion}', nombreGarante = '${nombreGarante}', cedulaGarante = '${cedulaGarante}', telefonoGarante = '${telefonoGarante}', direccionGarante = '${direccionGarante}' WHERE inquilinosId = ${inqId}; `
-  );
-  res.json(datos);
-};
-
-exports.deleteLocal = async (req, res, next) => {
-  const { localId } = req.body;
-  const datos = await query(`DELETE FROM local WHERE localId = ${localId};`);
-  res.json(datos);
-};
-
-exports.deleteInq = async (req, res, next) => {
-  const { inqId } = req.body;
-  const datos = await query(
-    `DELETE FROM inquilinos WHERE inquilinosId = ${inqId};`
-  );
-  res.json(datos);
 };

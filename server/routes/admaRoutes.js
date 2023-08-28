@@ -1,5 +1,8 @@
 const express = require("express");
 const admaController = require("../controllers/adma");
+const localesController = require("../controllers/locales");
+const inquilinosController = require("../controllers/inquilinos");
+const facturasController = require("../controllers/facturas");
 const router = express.Router();
 
 router.get("/api/get-names", admaController.getFiltroNombreFactura);
@@ -8,28 +11,31 @@ router.get("/api/get-total-pending", admaController.getTotalPending);
 
 router.get("/api/get-total-debts", admaController.getTotalIndividualDebts);
 
-router.get("/api/get-inquilinos", admaController.getInquilinos);
-
-router.get("/api/get-locales", admaController.getLocales);
-
-router.post("/api/add-local", admaController.addLocales);
-
-router.put("/api/edit-local", admaController.editLocales);
-
-router.get("/api/get-facturas/:inqId", admaController.getFacturas);
-
-router.get("/api/get-factura/:facturaId", admaController.getReceiveFactura);
-
 router.get("/api/get-debt/:inqId", admaController.getdebt);
 
-router.post("/api/pay-factura", admaController.payfactura);
+// FACTURA RELATED
+router.get("/api/get-facturas/:inqId", facturasController.getFacturas);
 
-router.post("/api/add-inquilino", admaController.addInquilino);
+router.get("/api/get-factura/:facturaId", facturasController.getReceiveFactura);
 
-router.put("/api/edit-inquilino", admaController.editInqulino);
+router.post("/api/pay-factura", facturasController.payfactura);
 
-router.post("/api/delete-local", admaController.deleteLocal);
+// INQUILINOS RELATED
+router.get("/api/get-inquilinos", inquilinosController.getInquilinos);
 
-router.post("/api/delete-inq", admaController.deleteInq);
+router.post("/api/add-inquilino", inquilinosController.addInquilino);
+
+router.put("/api/edit-inquilino", inquilinosController.editInqulino);
+
+router.post("/api/delete-inq", inquilinosController.deleteInq);
+
+// LOCALES RELATED
+router.get("/api/get-locales", localesController.getLocales);
+
+router.post("/api/delete-local", localesController.deleteLocal);
+
+router.post("/api/add-local", localesController.addLocales);
+
+router.put("/api/edit-local", localesController.editLocales);
 
 module.exports = router;
