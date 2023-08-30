@@ -42,12 +42,15 @@ const Dashboard = () => {
           <h2>Deudas Inquilinos</h2>
           <div className="chart">
             {deudasInq &&
-              deudasInq.map((d, i) => (
-                <div key={i} className="deudas_inquilinos">
-                  <p>{d.nombre}</p>
-                  <p>${d.deuda}</p>
-                </div>
-              ))}
+              deudasInq.map((d, i) => {
+                if (d.deuda == 0) return "";
+                return (
+                  <div key={i} className="deudas_inquilinos">
+                    <p>{d.nombre}</p>
+                    <p>${d.deuda}</p>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>

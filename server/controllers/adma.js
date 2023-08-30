@@ -10,7 +10,7 @@ exports.getTotalPending = async (req, res, next) => {
 
 exports.getTotalIndividualDebts = async (req, res, next) => {
   const totalDebts = await query(
-    "SELECT I.nombre, SUM(F.valor) - SUM(F.valor_pagado) AS deuda FROM inquilinos I INNER JOIN facturas F ON I.inquilinosId = F.inquilinosId GROUP BY I.nombre;"
+    "SELECT I.nombre, SUM(F.valor) - SUM(F.valor_pagado) AS deuda FROM inquilinos I INNER JOIN facturas F ON I.inquilinosId = F.inquilinosId WHERE f.valor != f.valor_pagado GROUP BY I.nombre;"
   );
   res.json(totalDebts);
 };
