@@ -43,7 +43,7 @@ const Dashboard = () => {
           <div className="chart">
             {deudasInq &&
               deudasInq.map((d, i) => {
-                if (d.deuda == 0) return "";
+                if (+d.deuda === 0) return "";
                 return (
                   <div key={i} className="deudas_inquilinos">
                     <p>{d.nombre}</p>

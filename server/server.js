@@ -17,6 +17,12 @@ const admaRoutes = require("./routes/admaRoutes");
 
 app.use(admaRoutes);
 
+setInterval(() => {
+  query(`CALL generar_factura();`).then((res) => {
+    console.log(res);
+  });
+}, 1800000);
+
 const PORT = 5000;
 
 app.listen(PORT, () => {
