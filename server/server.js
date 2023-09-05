@@ -19,7 +19,7 @@ app.use(admaRoutes);
 
 setInterval(() => {
   query(`CALL generar_factura();`).then((res) => {
-    console.log(res);
+    console.log("SP EXECUTED");
   });
 }, 1800000);
 
